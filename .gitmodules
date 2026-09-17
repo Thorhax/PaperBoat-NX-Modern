@@ -1,8 +1,8 @@
 [submodule "external/torch"]
 	path = external/torch
-	url = https://github.com/JeodC/Torch-LH.git
-	branch = pm64
+	url = https://github.com/Thorhax/Torch-LH.git
+	branch = switch-port
 [submodule "external/libultraship"]
 	path = external/libultraship
-	url = https://github.com/JeodC/libultraship.git
-	branch = lus-converge
+	url = https://github.com/Thorhax/libultraship.git
+	branch = switch-port

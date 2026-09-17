@@ -368,6 +368,7 @@ if (NOT MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<COMPILE_LANGUAGE:C>:-Wno-implicit-function-declaration>
         $<$<COMPILE_LANGUAGE:C>:-Wno-int-conversion>
+        $<$<COMPILE_LANGUAGE:C>:-Wno-incompatible-pointer-types>
         $<$<COMPILE_LANGUAGE:C>:-Wno-initializer-overrides>
         $<$<C_COMPILER_ID:GNU>:-Wreturn-mismatch>
     )
@@ -481,6 +482,23 @@ if(ANDROID)
         target_include_directories(${PROJECT_NAME} PRIVATE ${libzip_SOURCE_DIR}/lib ${libzip_BINARY_DIR})
     endif()
     target_link_libraries(${PROJECT_NAME} PRIVATE libzip::zip GLESv3 EGL android log)
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "NintendoSwitch" OR NINTENDO_SWITCH)
+    find_package(SDL2 REQUIRED)
+    FetchContent_GetProperties(libzip)
+    if(libzip_SOURCE_DIR)
+        target_include_directories(${PROJECT_NAME} PRIVATE ${libzip_SOURCE_DIR}/lib ${libzip_BINARY_DIR})
+    endif()
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        libzip::zip
+        SDL2::SDL2
+        EGL
+        GLESv2
+        glapi
+        drm_nouveau
+        -lnx
+    )
 endif()
 
 if(EMSCRIPTEN)
@@ -665,6 +683,27 @@ elseif(ANDROID OR EMSCRIPTEN)
     )
     target_link_options(${PROJECT_NAME} PRIVATE -pthread)
 
+elseif(CMAKE_SYSTEM_NAME STREQUAL "NintendoSwitch" OR NINTENDO_SWITCH)
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        -Wall -Wextra -Wno-error
+        -Wno-unused-parameter
+        -Wno-unused-function
+        -Wno-unused-variable
+        -Wno-missing-field-initializers
+        -Wno-parentheses
+        -Wno-narrowing
+        -Wno-missing-braces
+        $<$<COMPILE_LANGUAGE:C>:-Wno-incompatible-pointer-types>
+        $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>
+        $<$<COMPILE_LANGUAGE:CXX>:-Wno-c++11-narrowing>
+        $<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-enum-conversion>
+        -pthread
+    )
+    target_link_options(${PROJECT_NAME} PRIVATE
+        -pthread
+        -Wl,--allow-multiple-definition
+    )
+
 elseif(UNIX)
     # Linux-specific settings
     find_package(OpenGL REQUIRED)
@@ -754,6 +793,22 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(CPACK_GENERATOR "Bundle")
     set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_SOURCE_DIR}/cmake/configure-packaging.cmake)
     include(cmake/packaging.cmake)
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "NintendoSwitch" OR NINTENDO_SWITCH)
+    nx_generate_nacp(
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/paperboat.nacp"
+        NAME "PaperBoat"
+        AUTHOR "Thorhax"
+        VERSION "${PROJECT_VERSION}"
+    )
+
+    nx_create_nro(paperboat_nro
+        TARGET ${PROJECT_NAME}
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/paperboat.nro"
+        ICON "${CMAKE_SOURCE_DIR}/icon.jpg"
+        NACP "${CMAKE_CURRENT_BINARY_DIR}/paperboat.nacp"
+    )
 endif()
 
 message(STATUS "Configuring ${PROJECT_NAME} v${PROJECT_VERSION}")

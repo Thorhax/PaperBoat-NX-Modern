@@ -40,6 +40,11 @@ You can verify you have dumped a supported copy of the game by using the compati
 * Run `paperboat.app`.
 * When prompted, select your supported copy of the game.
 
+#### Nintendo Switch
+* Copy `switch/paperboat/` to `sdmc:/switch/paperboat/` on your microSD card.
+* Place your supported copy of the game (`baserom.us.z64` or `pm64.o2r`) in `sdmc:/switch/paperboat/`.
+* Launch `PaperBoat` via the Homebrew Menu (launching with title redirection / full RAM access recommended).
+
 ### 4. Play!
 
 Congratulations, you are now sailing with PaperBoat! Have fun!
