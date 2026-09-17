@@ -15,6 +15,7 @@
 #include "TouchControls.h"
 #include "port/ui/devtools/hooks/EventDebugger.h"
 #include <ship/window/gui/ConsoleWindow.h>
+#include <libultraship/bridge/consolevariablebridge.h>
 #include "port/ui/devtools/valueviewer/ValueViewer.h"
 #include "port/ui/devtools/saveeditor/SaveEditor.h"
 
@@ -40,6 +41,9 @@ UIWidgets::Colors GetMenuThemeColor() {
 }
 
 void SetupMenu() {
+#if defined(__SWITCH__)
+    CVarRegisterInteger(CVAR_IMGUI_CONTROLLER_NAV, 1);
+#endif
     auto gui = Ship::Context::GetRawInstance()->GetWindow()->GetGui();
     mPaperboatMenu = std::make_shared<PaperboatGui::PaperboatMenu>(CVAR_WINDOW("Menu"), "Port Menu");
     gui->SetMenu(mPaperboatMenu);

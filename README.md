@@ -49,20 +49,32 @@ You can verify you have dumped a supported copy of the game by using the compati
 
 Congratulations, you are now sailing with PaperBoat! Have fun!
 
-# Configuration
+# Controls & Configuration
 
-### Default keyboard configuration
-| N64 | A | B | Z | Start | Analog stick | C buttons | D-Pad |
-| - | - | - | - | - | - | - | - |
-| Keyboard | X | C | Z | Space | WASD | Arrow keys | TFGH |
+### Nintendo Switch Controls
+| N64 | Nintendo Switch | In-Game Action |
+| - | - | - |
+| **A** | **A** | Jump, Confirm, Talk, Inspect |
+| **B** | **B** | Hammer, Cancel |
+| **Z** | **ZL** | Spin, Action Command |
+| **L** | **L** | Party Member Ability |
+| **R** | **ZR** / **R** | Party Member Wheel |
+| **Start** | **+ (Plus)** | In-Game Pause Menu (Journal, Badges, Map) |
+| **Control Stick** | **Left Analog Stick** | Move Mario |
+| **C-Up** | **Right Stick Up** | Partner Hint (Goombario) |
+| **C-Down** | **Right Stick Down** | Toggle HUD / Battle Items |
+| **C-Left** | **Right Stick Left** | Switch Partner / Ability |
+| **C-Right** | **Right Stick Right** | Partner Ability |
+| **D-Pad** | **D-Pad** | Navigation / Menus |
 
-### Other shortcuts
-| Keys | Action |
+### Port Menu & Navigation
+| Switch Input | Action |
 | - | - |
-| F1 | Toggle menubar |
-| F11 | Fullscreen |
-| Tab | Toggle Alternate assets |
-| Ctrl+R | Reset |
+| **- (Minus)** | Toggle Port Menu (Settings, Enhancements, Cheats, Mods) |
+| **D-Pad / Left Stick** | Navigate Menu Items |
+| **A** | Select / Toggle Option |
+| **B** | Back / Deselect |
+| **Touchscreen** | Tap to navigate menus or touch buttons in handheld mode |
 
 ### Graphics Backends
 Currently, there are three rendering APIs supported: DirectX 11 (Windows), OpenGL (all platforms), and Metal (macOS). You can change which API to use in the `Settings` menu of the menubar, which requires a restart.

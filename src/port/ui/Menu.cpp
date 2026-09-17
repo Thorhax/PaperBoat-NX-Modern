@@ -864,7 +864,12 @@ void Menu::DrawElement() {
         // Update gamepad navigation after close based on if other menus are still
         // visible
         auto mImGuiIo = &ImGui::GetIO();
-        if (CVarGetInteger(CVAR_IMGUI_CONTROLLER_NAV, 0)
+#if defined(__SWITCH__)
+        constexpr int32_t defaultNav = 1;
+#else
+        constexpr int32_t defaultNav = 0;
+#endif
+        if (CVarGetInteger(CVAR_IMGUI_CONTROLLER_NAV, defaultNav)
             && Ship::Context::GetRawInstance()->GetWindow()->GetGui()->GetMenuOrMenubarVisible())
         {
             mImGuiIo->ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;

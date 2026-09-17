@@ -64,18 +64,22 @@ void PaperboatMenu::AddMenuSettings() {
                 .ComboMap(menuThemeOptions)
                 .DefaultIndex(Colors::LightBlue)
         );
-#if not defined(__SWITCH__) and not defined(__WIIU__)
+#if not defined(__WIIU__)
     AddWidget(path, "Menu Controller Navigation", WIDGET_CVAR_CHECKBOX)
         .CVar(CVAR_IMGUI_CONTROLLER_NAV)
         .RaceDisable(false)
         .Options(
-            CheckboxOptions().Tooltip(
-                "Allows controller navigation of the port menu (Settings, "
-                "Enhancements,...)\nCAUTION: "
-                "This will disable game inputs while the menu is visible.\n\nD-pad "
-                "to move between "
-                "items, A to select, B to move up in scope."
-            )
+            CheckboxOptions()
+#if defined(__SWITCH__)
+                .DefaultValue(true)
+#endif
+                .Tooltip(
+                    "Allows controller navigation of the port menu (Settings, "
+                    "Enhancements,...)\nCAUTION: "
+                    "This will disable game inputs while the menu is visible.\n\nD-pad "
+                    "to move between "
+                    "items, A to select, B to move up in scope."
+                )
         );
     AddWidget(path, "Menu Background Opacity", WIDGET_CVAR_SLIDER_FLOAT)
         .CVar(CVAR_SETTING("Menu.BackgroundOpacity"))
