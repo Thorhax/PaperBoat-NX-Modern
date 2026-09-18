@@ -872,9 +872,7 @@ void GameEngine::Destroy() {
         window->SaveWindowToConfig();
     }
     if (gShipContext != nullptr) {
-        if (auto config = Ship::Context::GetRawInstance()->GetConfig()) {
-            config->Save();
-        }
+        CVarSave();
     }
 
     PortEnhancements_Exit();

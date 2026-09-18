@@ -860,6 +860,7 @@ void Menu::DrawElement() {
     options.tooltip = "Close Menu (Esc)";
     if (UIWidgets::Button(ICON_FA_TIMES_CIRCLE, options)) {
         ToggleVisibility();
+        CVarSave();
 
         // Update gamepad navigation after close based on if other menus are still
         // visible
